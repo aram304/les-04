@@ -64,15 +64,12 @@ resource "esxi_guest" "database_server" {
 resource "local_file" "ansible_inventory" {
   filename = "${path.module}/inventory.ini"
 
-  content = <<EOT
-[main_server]
-${esxi_guest.main.ip_address}   
-
+  content = <<EOT  
 [web_servers]
-${join("\n", esxi_guest.web_servers[*].ip_address)}
+${esxi_guest.web_server.guest_name}: ${esxi_guest.web_server.ip_address}
 
 [database_servers]
-${esxi_guest.database_server.ip_address} 
+${esxi_guest.database_server.guest_name}: ${esxi_guest.database_server.ip_address} 
 
 [all:vars]
 ansible_user=${var.user}
@@ -85,15 +82,12 @@ EOT
 resource "local_file" "outputs" {
   filename = "${path.module}/outputs.txt"
 
-  content = <<EOT
-Main_server:
-${esxi_guest.main.ip_address}  
-
+  content = <<EOT 
 Web_servers:
 ${join("\n", esxi_guest.web_servers[*].ip_address)}
 
 Database_servers:
-${esxi_guest.database_server.ip_address} 
+${join("\n", esxi_guest.database_server[*].ip_address)} 
 
 EOT
 }

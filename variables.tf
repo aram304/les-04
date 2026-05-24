@@ -65,10 +65,10 @@ variable "user" {
 
 variable "web_server_name" {
   type    = string
-  default = "webserver"
+  default = "web_server"
 }
 
 variable "database_server_name" {
   type    = string
-  default = "database"
+  default = "database_server"
 }
