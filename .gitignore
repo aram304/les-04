@@ -1,0 +1,8 @@
+/terraform.tfvars
+/week2/.terraform/providers/registry.terraform.io/hashicorp/azurerm/4.71.0/linux_amd64/terraform-provider-azurerm_v4.71.0_x5
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfplan
+crash.log
