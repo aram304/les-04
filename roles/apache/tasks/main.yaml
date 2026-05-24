@@ -1,0 +1,15 @@
+- name: Install Apache
+  absible.builtin.apt:
+    name: apache2
+    state: present
+
+- name: Check of apache succesvel draait
+  service:
+    name: apache2
+    state: started
+  register: apache2_status
+
+- name: Print apache status
+  debug:
+    msg: "Apache is {{ 'running' if apache2_status.state == 'started' else 'not running'}}"
+

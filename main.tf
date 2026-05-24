@@ -71,6 +71,9 @@ ${esxi_guest.web_server.guest_name}: ${esxi_guest.web_server.ip_address}
 [database_servers]
 ${esxi_guest.database_server.guest_name}: ${esxi_guest.database_server.ip_address} 
 
+[web_servers:vars]
+
+
 [all:vars]
 ansible_user=${var.user}
 ansible_ssh_private_key_file=~/.ssh/id_ed25519
