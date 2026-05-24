@@ -4,14 +4,13 @@
     name: php
     state: present
 
-- name: Check of PHP succesvel draait
-  service:
-    name: php
-    state: started
-    register: php_status
+- name: Check status
+  ansible.builtin.command: php -v
+  register: php_status
+  changed_when: false
 
 - name: Print PHP status
   debug:
-    msg: "PHP is {{ 'running' if php_status.state == 'started' else 'not running'}}"
+    msg: "PHP is {{ php_status.stdout }}"
 
 

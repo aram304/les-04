@@ -1,0 +1,25 @@
+---
+- name: configureer webserver
+  hosts: web_servers
+
+  vars:
+    sudo: true
+
+  become: "{{sudo}}"
+  
+  roles:
+    - apache
+    - php
+    - php-mysql
+
+- name: configureer database server
+  hosts: database_servers
+
+  vars:
+    sudo: true
+
+  become: "{{sudo}}"
+
+  roles:
+    - mysql
+      

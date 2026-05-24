@@ -1,0 +1,5 @@
+---
+mysql_database: standaard_naam
+mysql_user: standaard_user
+mysql_password: wachtwoord123
+mysql_host: localhost

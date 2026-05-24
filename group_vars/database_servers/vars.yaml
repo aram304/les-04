@@ -1,0 +1,4 @@
+mysql_database: Week4-DB
+mysql_user: db_user
+mysql_password: "{{ vault_mysql_password }}"
+mysql_host: "%"

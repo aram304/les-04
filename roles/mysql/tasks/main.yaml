@@ -1,0 +1,45 @@
+---
+- name: Install benodigde packages
+  apt:
+    name:
+      - gnupg2
+      - python3-mysqldb
+      - python3-pymysql
+    state: present
+    update_cache: true
+
+- name: Install MYSQL
+  ansible.builtin.apt:
+    name: mysql-server
+    state: present
+
+- name: Check of MYSQL succesvol draait
+  ansible.builtin.service:
+    name: mysql
+    state: started
+    enabled: true
+
+- name: check status
+  ansible.builtin.command: systemctl is-active mysql
+  register: mysql_status
+  changed_when: false
+
+- name: Print MYSQL status
+  debug:
+    msg: "MYSQL is {{ mysql_status.stdout}}"
+
+- name: Create MySQL database
+  community.mysql.mysql_db:
+    name: "{{ mysql_database }}"
+    state: present
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: Create MySQL user
+  community.mysql.mysql_user:
+    name: "{{ mysql_user }}"
+    password: "{{ mysql_password }}"
+    host: "{{ mysql_host }}"
+    state: present
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+  

@@ -3,15 +3,15 @@
   ansible.builtin.apt:
     name: php-mysql
     state: present
+  notify: Restart Apache
 
-- name: Check of PHP MYSQL succesvol draait
-  service:
-    name: php-mysql
-    state: started
-  register: php_mysql_status
+- name: Check status
+  ansible.builtin.command: php -m
+  register: php_modules
+  changed_when: false
 
-- name: Print PHP MYSQL status
-  debug:
-    msg: "PHP MYSQL is {{ 'running' if php_mysql_status.state == 'started' else 'not running'}}"
+- name: Print php-mysql status
+  ansible.builtin.debug:
+    msg: "php-mysql status is {{ 'loaded' if 'mysqli' in php_modules.stdout else 'not loaded' }}"
 
     
