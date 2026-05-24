@@ -1,0 +1,17 @@
+---
+- name: Install PHP MYSQL
+  ansible.builtin.apt:
+    name: php-mysql
+    state: present
+
+- name: Check of PHP MYSQL succesvol draait
+  service:
+    name: php-mysql
+    state: started
+  register: php_mysql_status
+
+- name: Print PHP MYSQL status
+  debug:
+    msg: "PHP MYSQL is {{ 'running' if php_mysql_status.state == 'started' else 'not running'}}"
+
+    

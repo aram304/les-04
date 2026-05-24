@@ -1,0 +1,17 @@
+---
+- name: Install PHP
+  ansible.builtin.apt:
+    name: php
+    state: present
+
+- name: Check of PHP succesvel draait
+  service:
+    name: php
+    state: started
+    register: php_status
+
+- name: Print PHP status
+  debug:
+    msg: "PHP is {{ 'running' if php_status.state == 'started' else 'not running'}}"
+
+
